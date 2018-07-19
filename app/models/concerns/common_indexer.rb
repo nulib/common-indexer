@@ -1,0 +1,2 @@
+module CommonIndexer
+end
