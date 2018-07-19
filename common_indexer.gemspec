@@ -23,6 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'active-fedora'
   spec.add_dependency 'aws-sdk-elasticsearchservice'
+  spec.add_dependency 'config'
   spec.add_dependency 'elasticsearch'
   spec.add_dependency 'rails'
   spec.add_development_dependency 'bixby'
@@ -30,5 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'docker-stack'
   spec.add_development_dependency 'pry-byebug'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
+  spec.add_development_dependency 'rspec-rails'
 end
