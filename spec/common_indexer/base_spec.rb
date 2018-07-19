@@ -30,6 +30,5 @@ RSpec.describe CommonIndexer::Base do
     it '#to_common_index' do
       expect(resource.to_common_index).to be_a(Hash)
     end
-
   end
 end
