@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'common_indexer'
 
 if Rails.env.development? || Rails.env.test?
@@ -13,7 +14,9 @@ if Rails.env.development? || Rails.env.test?
 
     namespace :docker do
       namespace(:dev)  { Docker::Stack::RakeTask.load_tasks }
-      namespace(:test) { Docker::Stack::RakeTask.load_tasks(force_env: 'test', cleanup: true) }
+      namespace(:test) do
+        Docker::Stack::RakeTask.load_tasks(force_env: 'test', cleanup: true)
+      end
 
       desc 'Spin up test stack and run specs'
       task :spec do
