@@ -3,7 +3,6 @@
 require 'bundler/gem_tasks'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
-Dir['tasks/*.rake'].each { |rakefile| load rakefile }
 
 RSpec::Core::RakeTask.new(:spec)
 
