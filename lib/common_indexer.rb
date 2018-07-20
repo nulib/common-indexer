@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'typhoeus'
+require 'typhoeus/adapters/faraday'
 require 'elasticsearch'
 require 'common_indexer/version'
 require 'common_indexer/base'

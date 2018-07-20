@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'active-fedora'
   spec.add_dependency 'config'
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'typhoeus'
   spec.add_dependency 'elasticsearch'
   spec.add_development_dependency 'bixby'
   spec.add_development_dependency 'bundler', '~> 1.16'
