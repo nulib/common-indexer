@@ -1,4 +1,0 @@
----
-common_indexer:
-  endpoint: 'http://localhost:9002'
-  index_name: 'common'

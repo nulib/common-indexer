@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 lib = File.expand_path('../lib', __FILE__)
@@ -22,7 +21,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'active-fedora'
-  spec.add_dependency 'config'
   spec.add_dependency 'activesupport'
   spec.add_dependency 'typhoeus'
   spec.add_dependency 'elasticsearch'

@@ -15,10 +15,10 @@ module CommonIndexer # :nodoc:
     end
 
     def update_common_index
-      CommonIndexer.client index: CommonIndexer.index_name,
-                           id: id,
-                           type: self.class.name.underscore,
-                           body: CommonIndexer.sanitize(to_common_index)
+      CommonIndexer.client.index index: CommonIndexer.index_name,
+                                 id: id,
+                                 type: self.class.name.underscore,
+                                 body: CommonIndexer.sanitize(to_common_index)
     end
   end
 end

@@ -5,24 +5,26 @@ require 'typhoeus/adapters/faraday'
 require 'elasticsearch'
 require 'common_indexer/version'
 require 'common_indexer/base'
+require 'common_indexer/config'
 
 module CommonIndexer # :nodoc:
   class Error < StandardError; end
 
-  DEFAULT_KEYS = ['title'].freeze
-
   def self.client
-    @client ||= Elasticsearch::Client.new(hosts: Settings.common_indexer.endpoint)
+    @client ||= Elasticsearch::Client.new(hosts: config.endpoint)
   end
 
   def self.index_name
-    @index ||= Settings.common_indexer.index_name
+    config.index_name
   end
 
   def self.sanitize(input)
-    valid_keys = Settings.common_index&.valid_keys || DEFAULT_KEYS
     input.select do |key, _value|
-      valid_keys.include?(key.to_s)
+      config.keys.include?(key.to_s)
     end
+  end
+
+  def self.config
+    (@config ||= Config.new).tap { |c| yield c if block_given? }
   end
 end

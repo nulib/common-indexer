@@ -2,13 +2,10 @@
 
 require 'bundler/setup'
 require 'common_indexer'
-require 'config'
 require 'rspec'
 require 'active-fedora'
 require 'active_support/core_ext'
 require 'rdf'
-
-Config.load_and_set_settings(File.expand_path('../config/settings.yml', __FILE__))
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
