@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'elasticsearch'
-require 'rails'
-require 'common_indexer/engine'
 require 'common_indexer/version'
 require 'common_indexer/base'
 

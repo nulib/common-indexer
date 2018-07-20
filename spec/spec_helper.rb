@@ -3,9 +3,8 @@
 require 'bundler/setup'
 require 'common_indexer'
 require 'config'
-require 'rspec-rails'
+require 'rspec'
 require 'active-fedora'
-require 'active_support'
 require 'active_support/core_ext'
 require 'rdf'
 
