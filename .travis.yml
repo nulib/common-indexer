@@ -4,5 +4,8 @@ rvm:
   - 2.5.0
 before_install: gem install bundler -v 1.16.2
 cache: bundler
+env:
+  global:
+    - environment=test
 script:
   - 'bundle exec rake'
