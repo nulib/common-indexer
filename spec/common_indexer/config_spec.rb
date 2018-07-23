@@ -14,7 +14,7 @@ RSpec.describe CommonIndexer::Config do
     end
 
     it 'sets default allowed keys' do
-      expect(config.keys).to eq CommonIndexer::DEFAULT_KEYS
+      expect(config.allowed_keys).to eq CommonIndexer::DEFAULT_KEYS
     end
   end
 end

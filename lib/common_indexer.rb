@@ -20,7 +20,7 @@ module CommonIndexer # :nodoc:
 
   def self.sanitize(input)
     input.select do |key, _value|
-      config.keys.include?(key.to_s)
+      config.allowed_keys.include?(key.to_s)
     end
   end
 
