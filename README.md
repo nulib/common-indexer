@@ -1,7 +1,7 @@
 # CommonIndexer
 [![Build Status](https://travis-ci.com/nulib/common-indexer.svg?branch=master)](https://travis-ci.com/nulib/common-indexer)
 
-Indexes metadata into a central AWS Elasticsearch instance. The gem indexes based on hash returned by the method `#to_common_index` defined in your model using an `after_save` hook. The indexer also sanitizes the input by only allowing pre-configured hash keys.
+Indexes metadata into a central AWS Elasticsearch instance. The gem indexes based on a hash returned by the method `#to_common_index` defined in your model using an `after_save` hook. The indexer also sanitizes the input by only allowing pre-configured hash keys.
 
 ## Installation
 
