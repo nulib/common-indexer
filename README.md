@@ -1,15 +1,14 @@
 # CommonIndexer
+[![Build Status](https://travis-ci.com/nulib/common-indexer.svg?branch=master)](https://travis-ci.com/nulib/common-indexer)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/common_indexer`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Indexes metadata into a central Elasticsearch instance. 
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'common_indexer'
+gem 'common_indexer', github: 'nulib/common-indexer', branch: 'master'
 ```
 
 And then execute:
@@ -19,10 +18,51 @@ And then execute:
 Or install it yourself as:
 
     $ gem install common_indexer
+    
+## Configuration
+
+Add `common_indexer` to the appropriate Rails config file (e.g. `config/settings.yml`, `config/settings/development.yml`):
+
+```yml
+# config/settings/development.yml
+common_indexer:
+  endpoint: http://localhost:9201/ # default 'http://localhost:9200'
+  index_name: new-index # default 'common'
+  allowed_keys: # default ['title']
+    - title
+    - creator
+```
+
+Add an initializer to configure the CommonIndexer gem with the app settings:
+
+```ruby
+# config/initializers/common_indexer_config.rb
+::CommonIndexer.config do |config|
+  config.endpoint = Settings.common_indexer.endpoint
+  config.index_name = Settings.common_indexer.index_name
+  config.allowed_keys = Settings.common_indexer.allowed_keys
+end
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+Include the CommonIndexer into your model that you want to index with `include ::CommonIndexer::Base`, and define a `#to_common_index` method in that model. `#to_common_index` should return a hash with metadata key/values that conform to the allowed keys defined in the local configuration or fall back to the defaults.
+
+```ruby
+class Example < ActiveFedora::Base
+  include ::CommonIndexer::Base
+  
+  property :title,   ::RDF::URI('http://example.org/ns#title')
+  property :creator, ::RDF::URI('http://example.org/ns#creator')
+  
+  def to_common_index
+    { 
+      title: title, 
+      creator: creator
+    }
+  end
+end
+```
 
 ## Development
 
