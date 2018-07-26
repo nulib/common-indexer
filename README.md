@@ -8,7 +8,7 @@ Indexes metadata into a central AWS Elasticsearch instance. The gem indexes base
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'common_indexer', github: 'nulib/common-indexer', branch: 'master'
+gem 'common_indexer'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 Or install it yourself as:
 
     $ gem install common_indexer
-    
+
 ## Configuration
 
 Add `common_indexer` to the appropriate Rails config file (e.g. `config/settings.yml`, `config/settings/development.yml`):
@@ -51,13 +51,13 @@ Include the CommonIndexer into your model that you want to index with `include :
 ```ruby
 class Example < ActiveFedora::Base
   include ::CommonIndexer::Base
-  
+
   property :title,   ::RDF::URI('http://example.org/ns#title')
   property :creator, ::RDF::URI('http://example.org/ns#creator')
-  
+
   def to_common_index
-    { 
-      title: title, 
+    {
+      title: title,
       creator: creator
     }
   end
