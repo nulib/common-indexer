@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 module CommonIndexer
   DEFAULT_ENDPOINT   = 'http://localhost:9200/'
   DEFAULT_INDEX_NAME = 'common'
