@@ -1,0 +1,128 @@
+{
+  "properties": {
+    "full_text": {
+      "type": "text"
+    },
+    "abstract": {
+      "type": "text",
+      "copy_to": "full_text"
+    },
+    "admin_set": {
+      "type": "nested",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text",
+          "copy_to": "full_text"
+        }
+      }
+    },
+    "caption": {
+      "type": "text",
+      "copy_to": "full_text"
+    },
+    "collection": {
+      "type": "nested",
+      "properties": {
+        "id": {
+          "type": "keyword"
+        },
+        "title": {
+          "type": "text",
+          "copy_to": "full_text"
+        }
+      }
+    },
+    "contributor": {
+      "type": "nested",
+      "properties": {
+        "role": {
+          "type": "keyword"
+        },
+        "uri": {
+          "type": "keyword"
+        },
+        "label": {
+          "type": "text",
+          "copy_to": "full_text"
+        }
+      }
+    },
+    "date": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "keyword": {
+      "type": "keyword",
+      "copy_to": "full_text"
+    },
+    "language": {
+      "type": "nested",
+      "properties": {
+        "uri": {
+          "type": "keyword"
+        },
+        "label": {
+          "type": "text",
+          "copy_to": "full_text"
+        }
+      }
+    },
+    "permalink": {
+      "type": "keyword"
+    },
+    "provenance": {
+      "type": "text"
+    },
+    "publisher": {
+      "type": "text"
+    },
+    "rights_holder": {
+      "type": "text"
+    },
+    "source": {
+      "type": "text"
+    },
+    "subject": {
+      "type": "nested",
+      "properties": {
+        "role": {
+          "type": "keyword"
+        },
+        "uri": {
+          "type": "keyword"
+        },
+        "label": {
+          "type": "text",
+          "copy_to": "full_text"
+        }
+      }
+    },
+    "title": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "text",
+          "copy_to": "full_text"
+        },
+        "alternate": {
+          "type": "text",
+          "copy_to": "full_text"
+        }
+      }
+    },
+    "visibility": {
+      "type": "keyword"
+    },
+    "expanded_date": {
+      "type": "date"
+    },
+    "extra_fields": {
+      "type": "nested"
+    }
+  }
+}

@@ -18,13 +18,19 @@ module CommonIndexer # :nodoc:
     config.index_name
   end
 
-  def self.sanitize(input)
-    input.select do |key, _value|
-      config.allowed_keys.include?(key.to_s)
-    end
-  end
-
   def self.config
     (@config ||= Config.new).tap { |c| yield c if block_given? }
+  end
+
+  def self.configure_index!
+    unless client.indices.exists(index: index_name)
+      client.indices.create(index: index_name)
+    end
+
+    client.indices.put_mapping(
+      index: index_name,
+      type: '_doc',
+      body: { _doc: config.schema }
+    )
   end
 end

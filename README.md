@@ -1,7 +1,7 @@
 # CommonIndexer
 [![Build Status](https://travis-ci.com/nulib/common-indexer.svg?branch=master)](https://travis-ci.com/nulib/common-indexer)
 
-Indexes metadata into a central AWS Elasticsearch instance. The gem indexes based on a hash returned by the method `#to_common_index` defined in your model using an `after_save` hook. The indexer also sanitizes the input by only allowing pre-configured hash keys.
+Indexes metadata into a central AWS Elasticsearch instance. The gem indexes based on a hash returned by the method `#to_common_index` defined in your model using an `after_save` hook.
 
 ## Installation
 
@@ -28,9 +28,6 @@ Add `common_indexer` to the appropriate Rails config file (e.g. `config/settings
 common_indexer:
   endpoint: http://localhost:9201/ # default 'http://localhost:9200'
   index_name: new-index # default 'common'
-  allowed_keys: # default ['title']
-    - title
-    - creator
 ```
 
 Add an initializer to configure the CommonIndexer gem with the app settings:
@@ -40,13 +37,12 @@ Add an initializer to configure the CommonIndexer gem with the app settings:
 ::CommonIndexer.config do |config|
   config.endpoint = Settings.common_indexer.endpoint
   config.index_name = Settings.common_indexer.index_name
-  config.allowed_keys = Settings.common_indexer.allowed_keys
 end
 ```
 
 ## Usage
 
-Include the CommonIndexer into your model that you want to index with `include ::CommonIndexer::Base`, and define a `#to_common_index` method in that model. `#to_common_index` should return a hash with metadata key/values that conform to the allowed keys defined in the local configuration or fall back to the defaults.
+Include the CommonIndexer into your model that you want to index with `include ::CommonIndexer::Base`, and define a `#to_common_index` method in that model. `#to_common_index` should return a hash with metadata key/values that conform to the common index mapping.
 
 ```ruby
 class Example < ActiveFedora::Base

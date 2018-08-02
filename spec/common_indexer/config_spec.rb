@@ -12,9 +12,5 @@ RSpec.describe CommonIndexer::Config do
     it 'sets a default index name' do
       expect(config.index_name).to eq CommonIndexer::DEFAULT_INDEX_NAME
     end
-
-    it 'sets default allowed keys' do
-      expect(config.allowed_keys).to eq CommonIndexer::DEFAULT_KEYS
-    end
   end
 end
