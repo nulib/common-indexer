@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'active-fedora'
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'dry-configurable'
   spec.add_dependency 'json'
   spec.add_dependency 'typhoeus'
   spec.add_dependency 'elasticsearch'

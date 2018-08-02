@@ -1,34 +1,39 @@
 # frozen_string_literal: true
 
+require 'dry-configurable'
+require 'json'
 require 'typhoeus'
 require 'typhoeus/adapters/faraday'
 require 'elasticsearch'
 require 'common_indexer/version'
 require 'common_indexer/base'
-require 'common_indexer/config'
 
 module CommonIndexer # :nodoc:
   class Error < StandardError; end
 
-  def self.client
-    @client ||= Elasticsearch::Client.new(hosts: config.endpoint)
-  end
+  extend Dry::Configurable
 
-  def self.index_name
-    config.index_name
-  end
+  setting :endpoint, 'http://localhost:9200/'
+  setting :index_name, 'common'
+  setting :schema, JSON.parse(File.read(File.expand_path('../../config/schema.json', __FILE__)))
 
-  def self.config
-    (@config ||= Config.new).tap { |c| yield c if block_given? }
-  end
+  class << self
+    def client
+      @client ||= Elasticsearch::Client.new(hosts: config.endpoint)
+    end
 
-  def self.configure_index!
-    client.indices.create(index: index_name) unless client.indices.exists(index: index_name)
+    def index_name
+      config.index_name
+    end
 
-    client.indices.put_mapping(
-      index: index_name,
-      type: '_doc',
-      body: { _doc: config.schema }
-    )
+    def configure_index!
+      client.indices.create(index: index_name) unless client.indices.exists(index: index_name)
+
+      client.indices.put_mapping(
+        index: index_name,
+        type: '_doc',
+        body: { _doc: config.schema }
+      )
+    end
   end
 end
