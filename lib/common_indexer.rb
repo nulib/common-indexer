@@ -23,9 +23,7 @@ module CommonIndexer # :nodoc:
   end
 
   def self.configure_index!
-    unless client.indices.exists(index: index_name)
-      client.indices.create(index: index_name)
-    end
+    client.indices.create(index: index_name) unless client.indices.exists(index: index_name)
 
     client.indices.put_mapping(
       index: index_name,

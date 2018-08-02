@@ -19,17 +19,17 @@ module CommonIndexer # :nodoc:
       CommonIndexer.client.delete index: CommonIndexer.index_name,
                                   id: id,
                                   type: '_doc'
+    rescue Elasticsearch::Transport::Transport::Error => err
+      Rails.logger.warn("Common Index delete failure: #{err.message}")
     end
 
     def update_common_index
-      begin
-        CommonIndexer.client.index index: CommonIndexer.index_name,
-                                   id: id,
-                                   type: '_doc',
-                                   body: to_common_index
-      rescue Elasticsearch::Transport::Transport::Error => err
-        Rails.logger.warn("Common Indexing failure: #{err.message}")
-      end
+      CommonIndexer.client.index index: CommonIndexer.index_name,
+                                 id: id,
+                                 type: '_doc',
+                                 body: to_common_index
+    rescue Elasticsearch::Transport::Transport::Error => err
+      Rails.logger.warn("Common Indexing failure: #{err.message}")
     end
   end
 end
