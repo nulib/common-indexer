@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'active_support/core_ext/module/delegation'
 require 'dry-configurable'
 require 'json'
 require 'typhoeus'
@@ -18,12 +19,10 @@ module CommonIndexer # :nodoc:
   setting :schema, JSON.parse(File.read(File.expand_path('../../config/schema.json', __FILE__)))
 
   class << self
+    delegate :index_name, to: :config
+
     def client
       @client ||= Elasticsearch::Client.new(hosts: config.endpoint)
-    end
-
-    def index_name
-      config.index_name
     end
 
     def configure_index!

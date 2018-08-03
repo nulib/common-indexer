@@ -15,7 +15,7 @@
         },
         "title": {
           "type": "text",
-          "copy_to": "full_text"
+          "copy_to": ["full_text", "admin_set_facet"]
         }
       }
     },
@@ -31,7 +31,7 @@
         },
         "title": {
           "type": "text",
-          "copy_to": "full_text"
+          "copy_to": ["full_text", "collection_facet"]
         }
       }
     },
@@ -46,7 +46,7 @@
         },
         "label": {
           "type": "text",
-          "copy_to": "full_text"
+          "copy_to": ["full_text", "contributor_facet"]
         }
       }
     },
@@ -68,7 +68,7 @@
         },
         "label": {
           "type": "text",
-          "copy_to": "full_text"
+          "copy_to": ["full_text", "language_facet"]
         }
       }
     },
@@ -79,7 +79,8 @@
       "type": "text"
     },
     "publisher": {
-      "type": "text"
+      "type": "text",
+      "copy_to": "publisher_facet"
     },
     "rights_holder": {
       "type": "text"
@@ -98,7 +99,7 @@
         },
         "label": {
           "type": "text",
-          "copy_to": "full_text"
+          "copy_to": ["full_text", "subject_facet"]
         }
       }
     },
@@ -116,13 +117,27 @@
       }
     },
     "visibility": {
-      "type": "keyword"
+      "type": "keyword",
+      "copy_to": "visibility_facet"
     },
     "expanded_date": {
       "type": "date"
     },
+    "year": {
+      "type": "integer"
+    },
     "extra_fields": {
       "type": "nested"
     }
-  }
+  },
+  "dynamic_templates": [
+    {
+      "facets": {
+        "match":   "*_facet",
+        "mapping": {
+          "type": "keyword"
+        }
+      }
+    }
+  ]
 }
