@@ -72,6 +72,9 @@
         }
       }
     },
+    "location": {
+      "type": "geo_point"
+    },
     "permalink": {
       "type": "keyword"
     },
