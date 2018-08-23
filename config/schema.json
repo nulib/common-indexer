@@ -141,6 +141,14 @@
           "type": "keyword"
         }
       }
+    },
+    {
+      "nested": {
+        "match": "*_nested",
+        "mapping": {
+          "type": "nested"
+        }
+      }
     }
   ]
 }
