@@ -50,6 +50,18 @@
         }
       }
     },
+    "creator": {
+      "type": "nested",
+      "properties": {
+        "uri": {
+          "type": "keyword"
+        },
+        "label": {
+          "type": "text",
+          "copy_to": ["full_text", "creator_facet"]
+        }
+      }
+    },
     "date": {
       "type": "text"
     },
