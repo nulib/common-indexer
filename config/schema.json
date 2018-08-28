@@ -84,6 +84,17 @@
         }
       }
     },
+    "license": {
+      "type": "nested",
+      "properties": {
+        "uri": {
+          "type": "keyword"
+        },
+        "label": {
+          "type": "text"
+        }
+      }
+    },
     "location": {
       "type": "geo_point"
     },
@@ -99,6 +110,18 @@
     },
     "rights_holder": {
       "type": "text"
+    },
+    "rights_statement": {
+      "type": "nested",
+      "properties": {
+        "uri": {
+          "type": "keyword"
+        },
+        "label": {
+          "type": "text",
+          "copy_to": ["full_text", "rights_statement_facet"]
+        }
+      }
     },
     "source": {
       "type": "text"
