@@ -3,144 +3,6 @@
     "full_text": {
       "type": "text"
     },
-    "abstract": {
-      "type": "text",
-      "copy_to": "full_text"
-    },
-    "admin_set": {
-      "type": "nested",
-      "properties": {
-        "id": {
-          "type": "keyword"
-        },
-        "title": {
-          "type": "text",
-          "copy_to": ["full_text", "admin_set_facet"]
-        }
-      }
-    },
-    "caption": {
-      "type": "text",
-      "copy_to": "full_text"
-    },
-    "collection": {
-      "type": "nested",
-      "properties": {
-        "id": {
-          "type": "keyword"
-        },
-        "title": {
-          "type": "text",
-          "copy_to": ["full_text", "collection_facet"]
-        }
-      }
-    },
-    "contributor": {
-      "type": "nested",
-      "properties": {
-        "role": {
-          "type": "keyword"
-        },
-        "uri": {
-          "type": "keyword"
-        },
-        "label": {
-          "type": "text",
-          "copy_to": ["full_text", "contributor_facet"]
-        }
-      }
-    },
-    "creator": {
-      "type": "nested",
-      "properties": {
-        "uri": {
-          "type": "keyword"
-        },
-        "label": {
-          "type": "text",
-          "copy_to": ["full_text", "creator_facet"]
-        }
-      }
-    },
-    "date": {
-      "type": "text"
-    },
-    "description": {
-      "type": "text"
-    },
-    "keyword": {
-      "type": "keyword",
-      "copy_to": "full_text"
-    },
-    "language": {
-      "type": "nested",
-      "properties": {
-        "uri": {
-          "type": "keyword"
-        },
-        "label": {
-          "type": "text",
-          "copy_to": ["full_text", "language_facet"]
-        }
-      }
-    },
-    "license": {
-      "type": "nested",
-      "properties": {
-        "uri": {
-          "type": "keyword"
-        },
-        "label": {
-          "type": "text"
-        }
-      }
-    },
-    "location": {
-      "type": "geo_point"
-    },
-    "permalink": {
-      "type": "keyword"
-    },
-    "provenance": {
-      "type": "text"
-    },
-    "publisher": {
-      "type": "text",
-      "copy_to": "publisher_facet"
-    },
-    "rights_holder": {
-      "type": "text"
-    },
-    "rights_statement": {
-      "type": "nested",
-      "properties": {
-        "uri": {
-          "type": "keyword"
-        },
-        "label": {
-          "type": "text",
-          "copy_to": ["full_text", "rights_statement_facet"]
-        }
-      }
-    },
-    "source": {
-      "type": "text"
-    },
-    "subject": {
-      "type": "nested",
-      "properties": {
-        "role": {
-          "type": "keyword"
-        },
-        "uri": {
-          "type": "keyword"
-        },
-        "label": {
-          "type": "text",
-          "copy_to": ["full_text", "subject_facet"]
-        }
-      }
-    },
     "title": {
       "type": "object",
       "properties": {
@@ -153,25 +15,55 @@
           "copy_to": "full_text"
         }
       }
-    },
-    "visibility": {
-      "type": "keyword",
-      "copy_to": "visibility_facet"
-    },
-    "expanded_date": {
-      "type": "date"
-    },
-    "year": {
-      "type": "integer"
-    },
-    "extra_fields": {
-      "type": "nested"
     }
   },
   "dynamic_templates": [
     {
+      "date_text": {
+        "match_pattern": "regex",
+        "match": "(^date$|^date_|_date$)",
+        "mapping": { "type": "keyword" }
+      }
+    },
+    {
+      "dynamic_date": {
+        "match": "*_dt",
+        "mapping": { "type": "date" }
+      }
+    },
+    {
+      "dynamic_integer": {
+        "match": "*_i",
+        "mapping": { "type": "integer" }
+      }
+    },
+    {
+      "dynamic_long": {
+        "match": "*_l",
+        "mapping": { "type": "long" }
+      }
+    },
+    {
+      "dynamic_double": {
+        "match": "*_dbl",
+        "mapping": { "type": "double" }
+      }
+    },
+    {
+      "dynamic_boolean": {
+        "match": "*_bool",
+        "mapping": { "type": "boolean" }
+      }
+    },
+    {
+      "dynamic_ip": {
+        "match": "*_ip",
+        "mapping": { "type": "ip" }
+      }
+    },
+    {
       "facets": {
-        "match":   "*_facet",
+        "match": "*_facet",
         "mapping": {
           "type": "keyword"
         }
@@ -182,6 +74,71 @@
         "match": "*_nested",
         "mapping": {
           "type": "nested"
+        }
+      }
+    },
+    {
+      "with_id": {
+        "match": "*_idd",
+        "mapping": {
+          "type": "nested",
+          "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "title": {
+              "type": "text",
+              "fields": {
+                "keyword": { "type": "keyword" }
+              },
+              "copy_to": ["full_text", "{name}_facet"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "latlong": {
+        "match": "*_geo",
+        "mapping": {
+          "type": "geo_point"
+        }
+      }
+    },
+    {
+      "linked_data": {
+        "match": "*_ld",
+        "mapping": {
+          "type": "nested",
+          "properties": {
+            "uri": { "type": "keyword" },
+            "label": {
+              "type": "text",
+              "fields": {
+                "keyword": { "type": "keyword" }
+              },
+              "copy_to": ["full_text", "{name}_facet"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "linked_data_with_role": {
+        "match": "*_ldr",
+        "mapping": {
+          "type": "nested",
+          "properties": {
+            "role": { "type": "keyword" },
+            "uri":  { "type": "keyword" },
+            "label": {
+              "type": "text",
+              "fields": {
+                "keyword": { "type": "keyword" }
+              },
+              "copy_to": ["full_text", "{name}_facet"]
+            }
+          }
         }
       }
     }
