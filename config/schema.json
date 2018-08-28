@@ -41,6 +41,18 @@
     },
     {
       "titles": {
+        "path_match": "title.*",
+        "mapping": {
+          "type": "text",
+          "fields": {
+            "keyword": { "type": "keyword" }
+          },
+          "copy_to": ["full_text"]
+        }
+      }
+    },
+    {
+      "nested_titles": {
         "path_match": "*.title",
         "mapping": {
           "type": "text",
