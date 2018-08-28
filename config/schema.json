@@ -1,142 +1,77 @@
 {
   "properties": {
-    "full_text": {
-      "type": "text"
-    },
-    "title": {
-      "type": "object",
-      "properties": {
-        "primary": {
-          "type": "text",
-          "copy_to": "full_text"
-        },
-        "alternate": {
-          "type": "text",
-          "copy_to": "full_text"
-        }
-      }
-    }
+    "full_text": { "type": "text" }
   },
   "dynamic_templates": [
     {
-      "date_text": {
-        "match_pattern": "regex",
-        "match": "(^date$|^date_|_date$)",
-        "mapping": { "type": "keyword" }
-      }
-    },
-    {
-      "dynamic_date": {
-        "match": "*_dt",
-        "mapping": { "type": "date" }
-      }
-    },
-    {
-      "dynamic_integer": {
-        "match": "*_i",
-        "mapping": { "type": "integer" }
-      }
-    },
-    {
-      "dynamic_long": {
-        "match": "*_l",
-        "mapping": { "type": "long" }
-      }
-    },
-    {
-      "dynamic_double": {
-        "match": "*_dbl",
-        "mapping": { "type": "double" }
-      }
-    },
-    {
-      "dynamic_boolean": {
-        "match": "*_bool",
-        "mapping": { "type": "boolean" }
-      }
-    },
-    {
-      "dynamic_ip": {
-        "match": "*_ip",
-        "mapping": { "type": "ip" }
-      }
-    },
-    {
       "facets": {
         "match": "*_facet",
-        "mapping": {
-          "type": "keyword"
-        }
-      }
-    },
-    {
-      "nested": {
-        "match": "*_nested",
-        "mapping": {
-          "type": "nested"
-        }
-      }
-    },
-    {
-      "with_id": {
-        "match": "*_idd",
-        "mapping": {
-          "type": "nested",
-          "properties": {
-            "id": {
-              "type": "keyword"
-            },
-            "title": {
-              "type": "text",
-              "fields": {
-                "keyword": { "type": "keyword" }
-              },
-              "copy_to": ["full_text", "{name}_facet"]
-            }
-          }
-        }
+        "mapping": { "type": "keyword" }
       }
     },
     {
       "latlong": {
         "match": "*_geo",
-        "mapping": {
-          "type": "geo_point"
-        }
+        "mapping": { "type": "geo_point" }
       }
     },
     {
-      "linked_data": {
-        "match": "*_ld",
+      "date_text": {
+        "match_pattern": "regex",
+        "match": "^date",
         "mapping": {
-          "type": "nested",
-          "properties": {
-            "uri": { "type": "keyword" },
-            "label": {
-              "type": "text",
-              "fields": {
-                "keyword": { "type": "keyword" }
-              },
-              "copy_to": ["full_text", "{name}_facet"]
-            }
+          "type": "text",
+          "fields": {
+            "keyword": { "type": "keyword" }
           }
         }
       }
     },
     {
-      "linked_data_with_role": {
-        "match": "*_ldr",
+      "ids": {
+        "path_match": "*.id",
+        "mapping": { "type": "keyword" }
+      }
+    },
+    {
+      "uris": {
+        "path_match": "*.uri",
+        "mapping": { "type": "keyword" }
+      }
+    },
+    {
+      "titles": {
+        "path_match": "*.title",
         "mapping": {
-          "type": "nested",
-          "properties": {
-            "role": { "type": "keyword" },
-            "uri":  { "type": "keyword" },
-            "label": {
-              "type": "text",
-              "fields": {
-                "keyword": { "type": "keyword" }
-              },
-              "copy_to": ["full_text", "{name}_facet"]
+          "type": "text",
+          "fields": {
+            "keyword": { "type": "keyword" }
+          },
+          "copy_to": ["full_text"]
+        }
+      }
+    },
+    {
+      "labels": {
+        "path_match": "*.label",
+        "mapping": {
+          "type": "text",
+          "fields": {
+            "keyword": { "type": "keyword" }
+          },
+          "copy_to": ["full_text"]
+        }
+      }
+    },
+    {
+      "strings": {
+        "match_mapping_type": "string",
+        "mapping": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 512
             }
           }
         }
