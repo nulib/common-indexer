@@ -1,6 +1,14 @@
 {
   "properties": {
-    "full_text": { "type": "text" }
+    "full_text": { 
+      "type": "text" 
+    }, 
+    "all_titles": {
+        "type": "text"
+    },
+    "all_subjects": {
+      "type": "text"
+    }
   },
   "dynamic_templates": [
     {
@@ -40,6 +48,14 @@
       }
     },
     {
+      "subjects": {
+        "path_match": "subject.label",
+        "mapping": {
+          "copy_to": ["all_subjects"]
+        }
+      }
+    },
+    {
       "titles": {
         "path_match": "title.*",
         "mapping": {
@@ -47,7 +63,7 @@
           "fields": {
             "keyword": { "type": "keyword" }
           },
-          "copy_to": ["full_text"]
+          "copy_to": ["full_text", "all_titles"]
         }
       }
     },
