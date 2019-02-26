@@ -51,7 +51,14 @@
       "subjects": {
         "path_match": "subject.label",
         "mapping": {
-          "copy_to": ["all_subjects"]
+          "type": "text",
+          "copy_to": [
+            "full_text",
+            "all_subjects"
+          ],
+          "fields": {
+            "keyword": { "type": "keyword" }
+          }
         }
       }
     },
