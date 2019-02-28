@@ -108,7 +108,8 @@
               "type": "keyword",
               "ignore_above": 512
             }
-          }
+          },
+          "copy_to": ["full_text"]
         }
       }
     }
