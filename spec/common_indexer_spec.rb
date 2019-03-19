@@ -26,4 +26,16 @@ RSpec.describe CommonIndexer do
       expect(described_class.config.schema).to have_key('properties')
     end
   end
+
+  context 'client configuration' do
+    let(:foo) { instance_double(Object, object_id: 0xffff) }
+
+    it 'can be configured' do
+      described_class.configure_client do |f|
+        expect(f).to respond_to(:request)
+        foo.object_id
+      end
+      expect(foo).to have_received(:object_id)
+    end
+  end
 end

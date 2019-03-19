@@ -40,6 +40,19 @@ Add an initializer to configure the CommonIndexer gem with the app settings:
 end
 ```
 
+You can pass in additional configuration if needed. Ex: 
+
+```ruby
+CommonIndexer.configure_client do |f|
+  f.request :aws_sigv4,
+    service: service,
+    region: region,
+    access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+    secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+    session_token: ENV['AWS_SESSION_TOKEN'] # optional
+end
+```
+
 ## Usage
 
 Include the CommonIndexer into your model that you want to index with `include ::CommonIndexer::Base`, and define a `#to_common_index` method in that model. `#to_common_index` should return a hash with metadata key/values that conform to the common index mapping.

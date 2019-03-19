@@ -25,6 +25,10 @@ module CommonIndexer # :nodoc:
       @client ||= Elasticsearch::Client.new(hosts: config.endpoint)
     end
 
+    def configure_client(&block)
+      @client = Elasticsearch::Client.new(hosts: config.endpoint, &block)
+    end
+
     def configure_index!
       new_index = [index_name, Time.now.utc.strftime('%Y%m%d%H%M%S%3N')].join('_')
       client.indices.create(index: new_index)
