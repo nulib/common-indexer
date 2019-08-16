@@ -41,8 +41,8 @@ module CommonIndexer # :nodoc:
 
     def reindex_into(new_index)
       existing_index = client.indices.get(index: index_name).keys.first
-      raise ArgumentError, "Cannot reindex #{index_name} into itself" if existing_index == index_name
-      client.reindex(body: { source: { index: index_name }, dest: { index: new_index } })
+      raise ArgumentError, "Cannot reindex #{index_name} into itself" if existing_index == new_index
+      client.reindex(body: { source: { index: existing_index }, dest: { index: new_index } })
       client.indices.delete(index: existing_index)
     end
   end
