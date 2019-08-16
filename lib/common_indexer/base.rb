@@ -6,9 +6,11 @@ module CommonIndexer # :nodoc:
     extend ActiveSupport::Concern
     
     included do
+      extend ActiveModel::Callbacks
+      define_model_callbacks :delete_common_index, :update_common_index
+
       after_save :update_common_index
       after_destroy :delete_document
-      define_model_callbacks :delete_common_index, :update_common_index
     end
 
     # Override to_common_index in the including model and return a hash of common index attributes
