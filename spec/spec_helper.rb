@@ -1,11 +1,28 @@
 # frozen_string_literal: true
 
 require 'bundler/setup'
-require 'common_indexer'
+require 'simplecov'
+require 'coveralls'
 require 'rspec'
 require 'active-fedora'
 require 'active_support/core_ext'
 require 'rdf'
+
+Coveralls.wear!
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+)
+
+SimpleCov.start do
+  add_filter 'spec'
+  add_filter 'vendor'
+end
+
+require 'common_indexer'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
