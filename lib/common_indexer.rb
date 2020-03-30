@@ -17,6 +17,7 @@ module CommonIndexer # :nodoc:
   setting :endpoint, 'http://localhost:9200/'
   setting :index_name, 'common'
   setting :schema, JSON.parse(File.read(File.expand_path('../../config/schema.json', __FILE__)))
+  setting :settings, JSON.parse(File.read(File.expand_path('../../config/settings.json', __FILE__)))
 
   class << self
     delegate :index_name, to: :config
@@ -31,13 +32,24 @@ module CommonIndexer # :nodoc:
 
     def configure_index!
       new_index = [index_name, Time.now.utc.strftime('%Y%m%d%H%M%S%3N')].join('_')
-      client.indices.create(index: new_index)
-      client.indices.put_mapping(index: new_index, type: '_doc', body: { _doc: config.schema })
+      create_index(new_index)
+      apply_settings(new_index)
       reindex_into(new_index) if client.indices.exists(index: index_name)
       client.indices.put_alias(index: new_index, name: index_name)
     end
 
     private
+
+      def create_index(new_index)
+        client.indices.create(index: new_index)
+        client.indices.put_mapping(index: new_index, type: '_doc', body: { _doc: config.schema })
+      end
+
+      def apply_settings(new_index)
+        client.indices.close(index: new_index)
+        client.indices.put_settings(index: new_index, body: config.settings)
+        client.indices.open(index: new_index)
+      end
 
       def reindex_into(new_index)
         existing_index = client.indices.get(index: index_name).keys.first
