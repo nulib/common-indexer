@@ -1,13 +1,22 @@
 {
   "properties": {
     "full_text": { 
-      "type": "text" 
-    }, 
+      "type": "text",
+      "analyzer": "phrase_analyzer",
+      "search_analyzer": "keyword_analyzer",
+      "search_quote_analyzer": "phrase_analyzer"
+  }, 
     "all_titles": {
-        "type": "text"
+        "type": "text",
+      "analyzer": "phrase_analyzer",
+      "search_analyzer": "keyword_analyzer",
+      "search_quote_analyzer": "phrase_analyzer"
     },
     "all_subjects": {
-      "type": "text"
+      "type": "text",
+      "analyzer": "phrase_analyzer",
+      "search_analyzer": "keyword_analyzer",
+      "search_quote_analyzer": "phrase_analyzer"
     }
   },
   "dynamic_templates": [
@@ -29,6 +38,9 @@
         "match": "^date",
         "mapping": {
           "type": "text",
+          "analyzer": "phrase_analyzer",
+          "search_analyzer": "keyword_analyzer",
+          "search_quote_analyzer": "phrase_analyzer",
           "fields": {
             "keyword": { "type": "keyword" }
           }
@@ -52,6 +64,9 @@
         "path_match": "subject.label",
         "mapping": {
           "type": "text",
+          "analyzer": "phrase_analyzer",
+          "search_analyzer": "keyword_analyzer",
+          "search_quote_analyzer": "phrase_analyzer",
           "copy_to": [
             "full_text",
             "all_subjects"
@@ -67,6 +82,9 @@
         "path_match": "title.*",
         "mapping": {
           "type": "text",
+          "analyzer": "phrase_analyzer",
+          "search_analyzer": "keyword_analyzer",
+          "search_quote_analyzer": "phrase_analyzer",
           "fields": {
             "keyword": { "type": "keyword" }
           },
@@ -79,6 +97,9 @@
         "path_match": "*.title",
         "mapping": {
           "type": "text",
+          "analyzer": "phrase_analyzer",
+          "search_analyzer": "keyword_analyzer",
+          "search_quote_analyzer": "phrase_analyzer",
           "fields": {
             "keyword": { "type": "keyword" }
           },
@@ -91,6 +112,9 @@
         "path_match": "*.label",
         "mapping": {
           "type": "text",
+          "analyzer": "phrase_analyzer",
+          "search_analyzer": "keyword_analyzer",
+          "search_quote_analyzer": "phrase_analyzer",
           "fields": {
             "keyword": { "type": "keyword" }
           },
@@ -103,6 +127,9 @@
         "match_mapping_type": "string",
         "mapping": {
           "type": "text",
+          "analyzer": "phrase_analyzer",
+          "search_analyzer": "keyword_analyzer",
+          "search_quote_analyzer": "phrase_analyzer",
           "fields": {
             "keyword": {
               "type": "keyword",

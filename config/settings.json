@@ -25,15 +25,5 @@
         }
       }
     }
-  },
-  "mappings": {
-    "properties": {
-      "title": {
-        "type": "text",
-        "analyzer": "phrase_analyzer",
-        "search_analyzer": "keyword_analyzer",
-        "search_quote_analyzer": "phrase_analyzer"
-      }
-    }
   }
 }
